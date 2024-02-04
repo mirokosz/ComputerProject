@@ -17,6 +17,16 @@ namespace Computer.Controllers
         {
             return View();
         }
+        public IActionResult About()
+        {
+            var model = new About()
+            {
+                Title = "Computer application",
+                Description = "Some description",
+                Tags = new List<string>() { "computer", "app", "free" }
+            };
+            return View(model);
+        }
 
         public IActionResult Privacy()
         {
