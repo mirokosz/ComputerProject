@@ -1,13 +1,11 @@
-namespace Computer
-{
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
+using Computer.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
+using Computer.Infrastructure.Extensions;
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+builder.Services.AddInfrastructure(builder.Configuration);
 
             var app = builder.Build();
 
@@ -31,6 +29,3 @@ namespace Computer
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
-        }
-    }
-}

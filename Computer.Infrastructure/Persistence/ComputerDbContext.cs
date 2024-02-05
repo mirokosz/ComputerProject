@@ -9,11 +9,20 @@ namespace Computer.Infrastructure.Persistence
 {
     public class ComputerDbContext : DbContext    
     {
+        public ComputerDbContext(DbContextOptions<ComputerDbContext> options) : base(options)
+        {
+            
+        }
         public DbSet<Computer.Domain.Entities.Computer> Computers { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=ComputerDb;Trusted_Connection=True;");
+        //}
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=ComputerDb;Trusted_Connection=True;");
+            modelBuilder.Entity<Domain.Entities.Computer>()
+                .OwnsOne(c => c.SpecificationDetails);
         }
     }
 }
