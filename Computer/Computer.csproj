@@ -12,6 +12,9 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 	</ItemGroup>
+
+
+	
   <ItemGroup>
     <ProjectReference Include="..\Computer.Application\Computer.Application.csproj" />
     <ProjectReference Include="..\Computer.Infrastructure\Computer.Infrastructure.csproj" />

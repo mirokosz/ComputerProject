@@ -1,0 +1,46 @@
+﻿@using Computer.Application.Computer
+
+@model ComputerDto
+<h1>Create Computer</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form action="/Computer/Create" method="post">
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="Name">Name</label>
+                <input class="form-control" type="text" asp-for="Name" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="Producer">Producer</label>
+                <input class="form-control" type="text" asp-for="Producer" />
+                <span asp-validation-for="Producer" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="CPU">CPU</label>
+                <input class="form-control" type="text" asp-for="CPU" />
+                <span asp-validation-for="CPU" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="Memory">Memory</label>
+                <input class="form-control" type="text" asp-for="Memory" />
+                <span asp-validation-for="Memory" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="GPU">GPU</label>
+                <input class="form-control" type="text" asp-for="GPU" />
+                <span asp-validation-for="GPU" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    } 
+}

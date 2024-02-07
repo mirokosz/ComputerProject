@@ -1,4 +1,7 @@
-﻿using Computer.Infrastructure.Persistence;
+﻿using Computer.Domain.Interfaces;
+using Computer.Infrastructure.Persistence;
+using Computer.Infrastructure.Repositories;
+using Computer.Infrastructure.Seeders;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +19,10 @@ namespace Computer.Infrastructure.Extensions
         {
             services.AddDbContext<ComputerDbContext>(options => options.UseSqlServer(
                 configuration.GetConnectionString("Computer")));
+
+            services.AddScoped<ComputerSeeder>();
+
+            services.AddScoped<IComputerRepository, ComputerRepository>();
         }
             
     }
