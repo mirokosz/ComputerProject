@@ -2,6 +2,7 @@
 using Computer.Infrastructure.Persistence;
 using Computer.Infrastructure.Repositories;
 using Computer.Infrastructure.Seeders;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,6 +20,8 @@ namespace Computer.Infrastructure.Extensions
         {
             services.AddDbContext<ComputerDbContext>(options => options.UseSqlServer(
                 configuration.GetConnectionString("Computer")));
+            services.AddDefaultIdentity<IdentityUser>()
+                .AddEntityFrameworkStores<ComputerDbContext>();
 
             services.AddScoped<ComputerSeeder>();
 

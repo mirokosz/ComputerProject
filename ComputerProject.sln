@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Computer.Domain", "Computer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Computer.Application", "Computer.Application\Computer.Application.csproj", "{D3EAF1EF-4174-4B1A-923A-C01339C5BEEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Computer.Infrastructure", "Computer.Infrastructure\Computer.Infrastructure.csproj", "{E4C0B60F-98FE-4AFB-992D-11D2F4070B60}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Computer.Infrastructure", "Computer.Infrastructure\Computer.Infrastructure.csproj", "{E4C0B60F-98FE-4AFB-992D-11D2F4070B60}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
