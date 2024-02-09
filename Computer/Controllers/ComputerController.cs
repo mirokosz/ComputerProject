@@ -1,29 +1,71 @@
 ﻿using Computer.Application.Computer;
-using Computer.Application.Services;
+using Computer.Application.Computer.Queries.GetAllComputers;
+using Computer.Application.Computer.Commands.CreateComputer;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Computer.Application.Computer.Queries.GetComputerByEncodedName;
+using Computer.Application.Computer.Commands.EditComputer;
+using AutoMapper;
 
 namespace Computer.Controllers
 {
     public class ComputerController : Controller
     {
-        private readonly IComputerService _computerService;
-        public ComputerController(IComputerService computerService)
+        private readonly IMediator _mediator;
+        private readonly IMapper _mapper;
+        public ComputerController(IMediator mediator, IMapper mapper)
         {
-            _computerService = computerService;
+            _mediator = mediator;
+            _mapper = mapper;
         }
-        public ActionResult Create()
+        
+        public async Task<IActionResult> Index()
+        {
+            var computers = await _mediator.Send(new GetAllComputersQuery());
+            return View(computers);
+        }
+        public IActionResult Create()
         {
             return View();
         }
+
+        [Route("Computer/{encodedName}/Details")]
+        public async Task<IActionResult> Details(string encodedName)
+        {
+            var dto = await _mediator.Send(new GetComputerByEncodedNameQuery(encodedName));
+            return View(dto);
+        }
+
+        [Route("Computer/{encodedName}/Edit")]
+        public async Task<IActionResult> Edit(string encodedName)
+        {
+            var dto = await _mediator.Send(new GetComputerByEncodedNameQuery(encodedName));
+            EditComputerCommand model = _mapper.Map<EditComputerCommand>(dto);
+            return View(model);
+        }
+
         [HttpPost]
-        public async Task<IActionResult> Create(ComputerDto computer)
+        [Route("Computer/{encodedName}/Edit")]
+        public async Task<IActionResult> Edit(string encodedName, EditComputerCommand command)
         {
             if (!ModelState.IsValid)
             {
-                return View();
+                return View(command);
+
             }
-            await _computerService.Create(computer);
-            return RedirectToAction(nameof(Create));    
+            await _mediator.Send(command);
+            return RedirectToAction(nameof(Index));
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateComputerCommand command)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(command);
+            }
+            await _mediator.Send(command);
+            return RedirectToAction(nameof(Index));    
         }
     }
 }

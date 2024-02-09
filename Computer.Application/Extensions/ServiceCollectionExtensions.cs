@@ -1,7 +1,5 @@
 ﻿using Computer.Domain.Interfaces;
 using Computer.Application.Mappings;
-using Computer.Application.Services;
-using Computer.Application.Computer;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -10,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FluentValidation.AspNetCore;
+using MediatR;
+using Computer.Application.Computer.Commands.CreateComputer;
 
 namespace Computer.Application.Extensions
 {
@@ -17,11 +17,11 @@ namespace Computer.Application.Extensions
     {
         public static void AddApplication(this IServiceCollection services)
         {
-            services.AddScoped<IComputerService, ComputerService>();
+            services.AddMediatR(typeof(CreateComputerCommand));
 
             services.AddAutoMapper(typeof(ComputerMappingProfile));
 
-            services.AddValidatorsFromAssemblyContaining<ComputerDtoValidator>()
+            services.AddValidatorsFromAssemblyContaining<CreateComputerCommandValidator>()
                 .AddFluentValidationAutoValidation()
                 .AddFluentValidationClientsideAdapters();
         }

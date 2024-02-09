@@ -4,27 +4,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Computer.Domain.Interfaces;
-using Computer.Application.Computer;
+using MediatR;
 using AutoMapper;
 
-namespace Computer.Application.Services
+namespace Computer.Application.Computer.Commands.CreateComputer
 {
-    public class ComputerService : IComputerService
+    public class CreateComputerCommandHandler : IRequestHandler<CreateComputerCommand>
     {
         private readonly IComputerRepository _computerRepository;
         private readonly IMapper _mapper;
-        public ComputerService(IComputerRepository computerRepository, IMapper mapper)
+
+        public CreateComputerCommandHandler(IComputerRepository computerRepository, IMapper mapper)
         {
             _computerRepository = computerRepository;
             _mapper = mapper;
         }
 
-        public async Task Create(ComputerDto computerDto)
+        public async Task<Unit> Handle(CreateComputerCommand request, CancellationToken cancellationToken) 
         {
-            var computer = _mapper.Map<Domain.Entities.Computer>(computerDto);  
+            var computer = _mapper.Map<Domain.Entities.Computer>(request);
 
             computer.EncodeName();
             await _computerRepository.Create(computer);
+            return Unit.Value;
         }
     }
 }

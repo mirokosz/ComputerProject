@@ -5,12 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FluentValidation;
+using Computer.Application.Computer.Commands.CreateComputer;
 
-namespace Computer.Application.Computer
+namespace Computer.Application.Computer.Commands.CreateComputer
 {
-    public class ComputerDtoValidator : AbstractValidator<ComputerDto>
+    public class CreateComputerCommandValidator : AbstractValidator<CreateComputerCommand>
     {
-        public ComputerDtoValidator(IComputerRepository repository) 
+        public CreateComputerCommandValidator(IComputerRepository repository) 
         {
             RuleFor(c => c.Name)
                 .NotEmpty()

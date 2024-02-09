@@ -10,5 +10,9 @@ namespace Computer.Domain.Interfaces
     {
         Task Create(Domain.Entities.Computer computer);
         Task<Domain.Entities.Computer?> GetByName(string name);
+        Task<IEnumerable<Domain.Entities.Computer>> GetAll();
+        Task<Domain.Entities.Computer> GetByEncodedName(string encodedName);
+        Task Commit();
+
     }
 }
