@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Computer.Application.Computer.Queries.GetComputerByEncodedName;
 using Computer.Application.Computer.Commands.EditComputer;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Computer.Controllers
 {
@@ -24,10 +25,7 @@ namespace Computer.Controllers
             var computers = await _mediator.Send(new GetAllComputersQuery());
             return View(computers);
         }
-        public IActionResult Create()
-        {
-            return View();
-        }
+
 
         [Route("Computer/{encodedName}/Details")]
         public async Task<IActionResult> Details(string encodedName)
@@ -56,8 +54,15 @@ namespace Computer.Controllers
             await _mediator.Send(command);
             return RedirectToAction(nameof(Index));
         }
-        
+
+        [Authorize]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create(CreateComputerCommand command)
         {
             if (!ModelState.IsValid)
